@@ -1,0 +1,62 @@
+<ng-container *ngIf="mostrarMenu">
+  <p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="w-18rem">
+    <div class="flex flex-column h-full">
+      <div class="flex align-items-center justify-content-center py-4 border-bottom-1 surface-border">
+        <i class="pi pi-box text-primary text-4xl mr-2"></i>
+        <span class="text-2xl font-bold text-primary">ERPAldair</span>
+      </div>
+
+      <div class="flex-1 overflow-y-auto py-4">
+        <ul class="list-none p-0 m-0">
+          <li class="mb-2">
+            <a routerLink="/dashboard" (click)="sidebarVisible = false" class="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full" style="text-decoration: none;">
+              <i class="pi pi-home mr-3 text-lg"></i><span class="font-medium text-lg">Dashboard</span>
+            </a>
+          </li>
+          <li class="mb-2">
+            <a routerLink="/mis-grupos" (click)="sidebarVisible = false" class="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full" style="text-decoration: none;">
+              <i class="pi pi-folder-open mr-3 text-lg"></i><span class="font-medium text-lg">Mis Grupos</span>
+            </a>
+          </li>
+          <li class="mb-2" *appHasPermission="'users:manage'">
+            <a routerLink="/gestion-usuarios" (click)="sidebarVisible = false" class="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full" style="text-decoration: none;">
+              <i class="pi pi-users mr-3 text-lg"></i><span class="font-medium text-lg">Admin Usuarios</span>
+            </a>
+          </li>
+          <li class="mb-2" *appHasPermission="'groups:manage'">
+            <a routerLink="/group" (click)="sidebarVisible = false" class="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full" style="text-decoration: none;">
+              <i class="pi pi-briefcase mr-3 text-lg"></i><span class="font-medium text-lg">Admin Grupos</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-auto border-top-1 surface-border pt-4">
+        <p-button label="Cerrar Sesión" icon="pi pi-sign-out" severity="danger" [text]="true" [raised]="true" styleClass="w-full font-bold" (onClick)="auth.logout(); sidebarVisible = false"></p-button>
+      </div>
+    </div>
+  </p-sidebar>
+
+  <div class="surface-0 shadow-1 flex align-items-center justify-content-between px-4 py-3 sticky top-0 z-5" style="backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.9);">
+    <div class="flex align-items-center">
+      <p-button icon="pi pi-bars" (onClick)="sidebarVisible = true" styleClass="p-button-rounded p-button-text p-button-plain mr-3" size="large"></p-button>
+      <div class="flex align-items-center bg-blue-50 px-3 py-2 border-round-3xl">
+        <i class="pi pi-briefcase text-blue-500 mr-2"></i>
+        <span class="text-lg font-bold text-blue-900">Workspace Activo</span>
+      </div>
+    </div>
+    <div class="flex align-items-center gap-4">
+      <div class="flex align-items-center gap-2 hidden md:flex cursor-pointer hover:bg-gray-100 px-3 py-2 border-round-3xl transition-colors" routerLink="/user">
+        <div class="text-right">
+          <span class="font-bold text-700 block line-height-1">{{ auth.usuarioActual?.nombre }}</span>
+          <span class="text-sm text-500">{{ auth.usuarioActual?.email }}</span>
+        </div>
+      </div>
+      <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-outlined" routerLink="/user"></p-button>
+    </div>
+  </div>
+</ng-container>
+
+<div class="p-4" [ngClass]="{'min-h-screen': true}">
+  <router-outlet></router-outlet>
+</div>

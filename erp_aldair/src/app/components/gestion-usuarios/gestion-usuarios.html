@@ -1,0 +1,83 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <h2>Gestión de Usuarios</h2>
+    <p-table [value]="usuarios" [rows]="10" [paginator]="true" styleClass="p-datatable-gridlines">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th style="width: 200px">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.nombre}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <p-button icon="pi pi-user-edit" (onClick)="abrirEdicion(user)" styleClass="p-button-rounded p-button-text"></p-button>
+                    <p-button icon="pi pi-key" (onClick)="abrirPermisos(user)" styleClass="p-button-rounded p-button-text p-button-warning"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Editar Usuario" [(visible)]="displayEditDialog" [modal]="true" [style]="{width: '450px'}">
+    <div class="flex flex-column gap-3">
+        <div class="field">
+            <label for="name">Nombre</label>
+            <input pInputText id="name" [(ngModel)]="usuarioSeleccionado.nombre" class="w-full" />
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input pInputText id="email" [(ngModel)]="usuarioSeleccionado.email" class="w-full" />
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" icon="pi pi-times" (onClick)="displayEditDialog=false" styleClass="p-button-text"></p-button>
+        <p-button label="Guardar" icon="pi pi-check" (onClick)="guardarUsuario()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Gestionar Permisos" [(visible)]="displayPermsDialog" [modal]="true" [style]="{width: '500px'}">
+    <div class="flex flex-column gap-4">
+
+        <div class="field">
+            <label class="block mb-2 font-bold">Contexto de Permisos</label>
+            <p-dropdown [options]="[{id: 'global', nombre: 'Global (Admin)'}].concat(grupos)"
+                [(ngModel)]="grupoParaPermisos"
+                optionLabel="nombre"
+                placeholder="Seleccione Global o un Grupo"
+                (onChange)="onGrupoChange()"
+                styleClass="w-full">
+            </p-dropdown>
+        </div>
+
+        <div *ngIf="grupoParaPermisos" class="field p-3 surface-ground border-round shadow-1">
+            <label class="block mb-3 font-bold text-primary text-xl">
+                <i class="pi pi-shield mr-2"></i>Permisos para: {{grupoParaPermisos.nombre}}
+            </label>
+            <!-- MEJORA DE UX DE SELECCIÓN DE PERMISOS -->
+            <div class="grid gap-3">
+                <div *ngFor="let perm of permisosDisponibles" class="col-12 md:col-6 lg:col-4">
+                    <div class="flex align-items-center p-3 surface-card border-round shadow-1 hover:shadow-2 transition-duration-200 cursor-pointer" (click)="chk.onClick($event, chk, true)">
+                        <p-checkbox #chk name="groupname" [value]="perm.value" [(ngModel)]="permisosSeleccionados" [inputId]="perm.value"></p-checkbox>
+                        <label [for]="perm.value" class="ml-2 font-medium cursor-pointer text-700 select-none w-full">{{perm.label}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!grupoParaPermisos" class="text-center p-4 text-500 italic border-round border-1 border-300">
+            Seleccione un grupo o el contexto Global para ver y editar los permisos disponibles.
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cerrar" icon="pi pi-times" (onClick)="displayPermsDialog=false" styleClass="p-button-text p-button-secondary"></p-button>
+        <p-button label="Actualizar Permisos" icon="pi pi-lock" (onClick)="guardarPermisos()" [disabled]="!grupoParaPermisos" styleClass="p-button-success"></p-button>
+    </ng-template>
+</p-dialog>

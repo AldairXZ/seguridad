@@ -1,0 +1,35 @@
+<div class="p-4">
+    <div class="mb-5">
+        <h2 class="m-0 text-900 font-bold text-3xl">Mis Grupos</h2>
+        <span class="text-500 text-lg">Selecciona un grupo para visualizar y gestionar tus tickets</span>
+    </div>
+
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-4" *ngFor="let grupo of misGrupos">
+            <div class="surface-card shadow-1 hover:shadow-3 transition-duration-200 border-round-xl p-4 border-top-3 border-blue-500 cursor-pointer h-full flex flex-column justify-content-between" (click)="accederAGrupo(grupo)">
+                <div>
+                    <div class="flex justify-content-between align-items-start mb-3">
+                        <span class="bg-blue-100 text-blue-700 font-bold px-2 py-1 border-round text-sm">
+                            {{grupo.categoria || 'General'}}
+                        </span>
+                        <span class="text-500 font-bold">#{{grupo.id}}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-900 mt-0 mb-3">{{grupo.nombre}}</h3>
+                    <div class="flex align-items-center text-600 mb-4">
+                        <i class="pi pi-users mr-2"></i>
+                        <span>{{grupo.empleados?.length || 0}} Miembros</span>
+                    </div>
+                </div>
+                <p-button label="Ver Tickets" icon="pi pi-arrow-right" styleClass="p-button-outlined w-full" (onClick)="accederAGrupo(grupo); $event.stopPropagation()"></p-button>
+            </div>
+        </div>
+
+        <div class="col-12" *ngIf="misGrupos.length === 0">
+            <div class="surface-card shadow-1 border-round-xl p-5 text-center flex flex-column align-items-center">
+                <i class="pi pi-inbox text-6xl text-300 mb-4"></i>
+                <h3 class="text-900 font-bold text-2xl m-0 mb-2">No tienes grupos asignados</h3>
+                <p class="text-600 m-0">Comunícate con tu administrador para que te asigne a un Workspace.</p>
+            </div>
+        </div>
+    </div>
+</div>

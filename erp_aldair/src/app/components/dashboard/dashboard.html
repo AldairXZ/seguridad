@@ -1,0 +1,47 @@
+<div class="surface-ground px-4 py-5 md:px-6 lg:px-8 border-round-xl mb-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-2">
+    <div class="flex flex-column md:flex-row justify-content-between align-items-center">
+        <div>
+            <h1 class="text-4xl font-bold m-0 mb-2">Resumen General</h1>
+            <p class="m-0 text-blue-100 text-lg">Visualiza y analiza el estado actual de los tickets.</p>
+        </div>
+        <div class="mt-4 md:mt-0">
+            <p-dropdown [options]="grupos" [(ngModel)]="grupoSeleccionado" optionLabel="nombre"
+                (onChange)="onGrupoChange($event)" placeholder="Filtrar por Workspace"
+                styleClass="w-20rem border-round-2xl border-none shadow-1 bg-white text-gray-800">
+            </p-dropdown>
+        </div>
+    </div>
+</div>
+
+<div class="grid mb-5">
+    <div class="col-12 md:col-6 lg:col-3" *ngFor="let stat of estadisticas">
+        <div class="surface-card shadow-1 hover:shadow-3 transition-duration-200 p-4 border-round-xl h-full border-top-3 flex flex-column justify-content-between cursor-pointer"
+             [ngClass]="{'border-red-500': stat.color === 'danger', 'border-blue-500': stat.color === 'info', 'border-orange-500': stat.color === 'warning', 'border-green-500': stat.color === 'success'}">
+            <div class="flex justify-content-between align-items-start mb-3">
+                <div>
+                    <span class="block text-500 font-bold mb-2 text-sm uppercase tracking-wide">{{stat.estado}}</span>
+                    <div class="text-900 font-bold text-5xl">{{stat.cantidad}}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center border-round-xl w-4rem h-4rem"
+                     [ngClass]="{'bg-red-50 text-red-500': stat.color === 'danger', 'bg-blue-50 text-blue-500': stat.color === 'info', 'bg-orange-50 text-orange-500': stat.color === 'warning', 'bg-green-50 text-green-500': stat.color === 'success'}">
+                    <i class="pi pi-ticket text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col-12 lg:col-6">
+        <div class="surface-card shadow-1 border-round-xl p-5 h-full">
+            <h3 class="text-800 font-bold mb-4 mt-0 text-xl"><i class="pi pi-chart-pie mr-2 text-primary"></i>Distribución por Estado</h3>
+            <p-chart type="pie" [data]="pieData" [options]="pieOptions" height="300px"></p-chart>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6">
+        <div class="surface-card shadow-1 border-round-xl p-5 h-full">
+            <h3 class="text-800 font-bold mb-4 mt-0 text-xl"><i class="pi pi-chart-bar mr-2 text-primary"></i>Volumen General</h3>
+            <p-chart type="bar" [data]="barData" [options]="barOptions" height="300px"></p-chart>
+        </div>
+    </div>
+</div>
