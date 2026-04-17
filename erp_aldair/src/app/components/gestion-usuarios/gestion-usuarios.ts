@@ -54,14 +54,14 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   cargarUsuarios() {
-    this.http.get<any>('http://localhost:3000/api/users', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/users', { headers: this.getHeaders() }).subscribe({
       next: (res) => this.usuarios = res.data,
       error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar usuarios' })
     });
   }
 
   cargarGrupos() {
-    this.http.get<any>('http://localhost:3000/api/groups', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/groups', { headers: this.getHeaders() }).subscribe({
       next: (res) => this.grupos = res.data
     });
   }
@@ -85,7 +85,7 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   guardarUsuario() {
-    this.http.put<any>(`http://localhost:3000/api/users/${this.usuarioSeleccionado.id}`, this.usuarioSeleccionado, { headers: this.getHeaders() }).subscribe({
+    this.http.put<any>(`https://seguridad-jqpt.onrender.com/api/users/${this.usuarioSeleccionado.id}`, this.usuarioSeleccionado, { headers: this.getHeaders() }).subscribe({
       next: () => {
         this.cargarUsuarios();
         this.displayEditDialog = false;
@@ -102,7 +102,7 @@ export class GestionUsuariosComponent implements OnInit {
       permisos: this.permisosSeleccionados
     };
 
-    this.http.put<any>(`http://localhost:3000/api/users/${this.usuarioSeleccionado.id}/permissions`, payload, { headers: this.getHeaders() }).subscribe({
+    this.http.put<any>(`https://seguridad-jqpt.onrender.com/api/users/${this.usuarioSeleccionado.id}/permissions`, payload, { headers: this.getHeaders() }).subscribe({
       next: () => {
         this.cargarUsuarios();
         this.displayPermsDialog = false;

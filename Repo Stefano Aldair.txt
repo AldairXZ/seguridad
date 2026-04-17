@@ -7,4 +7,7 @@ PROYECTO erp_aldair
 LINK DEL REPOSITORIO
 https://github.com/AldairXZ/seguridad.git
 
+LINK DEL DEPLOY EN VERCEL
+https://seguridad-eight.vercel.app/home
+
 ============================================================

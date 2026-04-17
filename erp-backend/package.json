@@ -6,7 +6,7 @@
     "postinstall": "cd apigateway && npm install && cd ../user-service && npm install && cd ../tickets-service && npm install && cd ../groups-service && npm install",
     "start": "concurrently -n \"GATEWAY,USERS,TICKETS,GROUPS\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold,bgYellow.bold\" \"cd apigateway && node server.js\" \"cd user-service && node server.js\" \"cd tickets-service && node server.js\" \"cd groups-service && node server.js\""
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^8.2.2"
   }
 }

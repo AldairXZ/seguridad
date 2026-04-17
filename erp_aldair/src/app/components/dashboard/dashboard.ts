@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
   }
 
   cargarDatosIniciales() {
-    this.http.get<any>('http://localhost:3000/api/groups', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/groups', { headers: this.getHeaders() }).subscribe({
       next: (res) => {
         this.grupos = res.data;
         this.grupos.unshift({ id: 0, nombre: 'Todos los Grupos' });
@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    this.http.get<any>('http://localhost:3000/api/tickets', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/tickets', { headers: this.getHeaders() }).subscribe({
       next: (res) => {
         this.todosLosTickets = res.data;
         this.procesarTickets(this.todosLosTickets);

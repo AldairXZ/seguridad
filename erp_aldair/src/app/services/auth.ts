@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://seguridad-jqpt.onrender.com';
 
   usuarioActual: any = null;
   permisosGrupoActual: string[] = [];

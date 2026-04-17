@@ -30,7 +30,7 @@ import { TooltipModule } from 'primeng/tooltip';
   templateUrl: './vista-grupo.html'
 })
 export class VistaGrupoComponent implements OnInit {
-  apiUrl = 'http://localhost:3000/api/tickets';
+  apiUrl = 'https://seguridad-jqpt.onrender.com/api/tickets';
 
   vistaOpciones: any[] = [
     { icon: 'pi pi-objects-column', value: 'kanban' },
@@ -86,7 +86,7 @@ export class VistaGrupoComponent implements OnInit {
   }
 
   cargarEmpleadosDelGrupo() {
-    this.http.get<any>('http://localhost:3000/api/groups', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/groups', { headers: this.getHeaders() }).subscribe({
       next: (res) => {
         const grupo = res.data.find((g: any) => g.id === this.groupId);
         if (grupo && grupo.empleados) {

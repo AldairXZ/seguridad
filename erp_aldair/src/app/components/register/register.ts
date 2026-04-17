@@ -25,7 +25,7 @@ import { CardModule } from 'primeng/card';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  apiUrl = 'http://localhost:3000';
+  apiUrl = 'https://seguridad-jqpt.onrender.com';
 
   constructor(
     private fb: FormBuilder,

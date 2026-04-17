@@ -34,7 +34,7 @@ export class MisGruposComponent implements OnInit {
   }
 
   cargarMisGrupos() {
-    this.http.get<any>('http://localhost:3000/api/groups', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/groups', { headers: this.getHeaders() }).subscribe({
       next: (res) => {
         // Filtrar solo los grupos en los que el usuario logueado está asignado
         const emailUsuario = this.auth.usuarioActual?.email;

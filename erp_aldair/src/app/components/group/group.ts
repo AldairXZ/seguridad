@@ -44,14 +44,14 @@ export class GroupComponent implements OnInit {
   }
 
   cargarGrupos() {
-    this.http.get<any>('http://localhost:3000/api/groups', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/groups', { headers: this.getHeaders() }).subscribe({
       next: (res) => this.grupos = res.data,
       error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los grupos' })
     });
   }
 
   cargarUsuarios() {
-    this.http.get<any>('http://localhost:3000/api/users', { headers: this.getHeaders() }).subscribe({
+    this.http.get<any>('https://seguridad-jqpt.onrender.com/api/users', { headers: this.getHeaders() }).subscribe({
       next: (res) => this.usuarios = res.data,
       error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los usuarios' })
     });
@@ -83,7 +83,7 @@ export class GroupComponent implements OnInit {
   guardarGrupo() {
     if (this.grupoActual.nombre) {
       if (this.grupoActual.id) {
-        this.http.put<any>(`http://localhost:3000/api/groups/${this.grupoActual.id}`, this.grupoActual, { headers: this.getHeaders() }).subscribe({
+        this.http.put<any>(`https://seguridad-jqpt.onrender.com/api/groups/${this.grupoActual.id}`, this.grupoActual, { headers: this.getHeaders() }).subscribe({
           next: () => {
             this.cargarGrupos();
             this.displayDialog = false;
@@ -91,7 +91,7 @@ export class GroupComponent implements OnInit {
           }
         });
       } else {
-        this.http.post<any>('http://localhost:3000/api/groups', this.grupoActual, { headers: this.getHeaders() }).subscribe({
+        this.http.post<any>('https://seguridad-jqpt.onrender.com/api/groups', this.grupoActual, { headers: this.getHeaders() }).subscribe({
           next: () => {
             this.cargarGrupos();
             this.displayDialog = false;
@@ -104,7 +104,7 @@ export class GroupComponent implements OnInit {
 
   eliminarGrupo(id: number) {
     if(confirm('¿Seguro que deseas eliminar este workspace? Esto borrará todos sus tickets asociados.')) {
-      this.http.delete<any>(`http://localhost:3000/api/groups/${id}`, { headers: this.getHeaders() }).subscribe({
+      this.http.delete<any>(`https://seguridad-jqpt.onrender.com/api/groups/${id}`, { headers: this.getHeaders() }).subscribe({
         next: () => {
           this.cargarGrupos();
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Grupo eliminado' });
