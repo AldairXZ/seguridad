@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "dist/erp_aldair_practica3/browser",
   "rewrites": [
     {
       "source": "/(.*)",
